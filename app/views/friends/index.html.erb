@@ -1,0 +1,47 @@
+<style >
+  body{
+        font-family: monaco cursive;
+
+  }
+</style>
+<h1>Friends List</h1>
+  <% if user_signed_in? %>
+  <table class="table">
+    <thead>
+      <tr class="table-dark">
+      <th>Friend Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Twitter</th>
+      <th>User Id</th>
+      <th>Details About The Friend</th>
+      <th>Remove Friend</th>
+      </tr>
+    </thead>
+  <tbody>
+    <div id="friends">
+    <% @friends.each do |friend| %>
+    <% if friend.user == current_user %>
+      <tr class="table-secondary">
+      <td><%= link_to friend.first_name + ' ' + friend.last_name, friend %></td>
+         <td><%= friend.email %></td>
+         <td><%= friend.phone %></td>
+         <td><%= friend.twitter %></td>
+         <td><%= friend.user_id %></td>
+         <td><%= link_to "Show More", friend,class:"btn btn-outline-primary" %></td>
+         <td><%= link_to 'Remove Friend',friend, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
+
+    <% end %>
+    <% end %>
+    
+  </div>
+</tbody>
+</table>  
+ <br>
+  <%= link_to 'New Friend', new_friend_path, class:"btn btn-secondary" %>
+<% else %>
+
+<h1>Hey There!</h1>
+Login To See Your Friends
+
+<% end %>
